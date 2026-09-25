@@ -1,0 +1,352 @@
+/* =========================================================
+   Chainline Cycle Works — Task 01
+   ========================================================= */
+
+:root {
+  --ink:        #2B1B12;   /* espresso brown, used for dark sections */
+  --steel:      #4A2E1E;   /* deep roast brown */
+  --signal:     #E8934A;   /* warm caramel accent */
+  --paper:      #FBF5EC;   /* cream page background */
+  --grey:       #8A7666;   /* secondary text, warm grey */
+  --line:       #E4D8C8;   /* hairlines and borders */
+
+  --nav-height: 76px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; scroll-padding-top: var(--nav-height); }
+
+body {
+  font-family: 'Archivo', system-ui, sans-serif;
+  font-weight: 400;
+  color: var(--ink);
+  background: var(--paper);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; }
+
+/* ---------------------------------------------------------
+   1. NAVIGATION  (fixed, and restyled on scroll by JS)
+   --------------------------------------------------------- */
+
+#navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--nav-height);
+  z-index: 1000;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+
+  /* default state: sitting on top of the dark hero */
+  background: transparent;
+  color: var(--paper);
+  border-bottom: 1px solid transparent;
+
+  transition: background-color .3s ease,
+              color .3s ease,
+              height .3s ease,
+              border-color .3s ease;
+}
+
+/* the class JavaScript adds once you scroll past the hero */
+#navbar.scrolled {
+  background: var(--paper);
+  color: var(--ink);
+  height: 60px;
+  border-bottom: 1px solid var(--line);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 800;
+  font-size: 1.15rem;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+}
+
+.brand-mark {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 3px solid var(--signal);
+}
+
+.nav-links {
+  display: flex;
+  gap: 8px;
+  list-style: none;
+}
+
+.nav-links a {
+  display: block;
+  padding: 8px 14px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: .95rem;
+  border-bottom: 2px solid transparent;
+  transition: border-color .2s ease, background-color .2s ease;
+}
+
+/* HOVER STATE — the second half of the task brief */
+.nav-links a:hover,
+.nav-links a:focus-visible {
+  border-bottom-color: var(--signal);
+}
+
+/* the link for the section you're currently looking at */
+.nav-links a.active {
+  border-bottom-color: var(--signal);
+  font-weight: 800;
+}
+
+/* hamburger, only shown on narrow screens */
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  padding: 8px;
+}
+
+.menu-toggle span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: currentColor;
+  transition: transform .25s ease, opacity .25s ease;
+}
+
+.menu-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.menu-toggle.open span:nth-child(2) { opacity: 0; }
+.menu-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ---------------------------------------------------------
+   2. HERO
+   --------------------------------------------------------- */
+
+.hero {
+  min-height: 100vh;
+  background: var(--steel);
+  color: var(--paper);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 140px 32px 60px;
+  position: relative;
+}
+
+.hero-inner { max-width: 760px; margin: 0 auto; width: 100%; }
+
+.hero-kicker {
+  color: var(--signal);
+  font-weight: 500;
+  font-size: .9rem;
+  margin-bottom: 20px;
+}
+
+.hero h1 {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(2.4rem, 7vw, 4.4rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin-bottom: 26px;
+}
+
+.hero-text {
+  max-width: 48ch;
+  font-size: 1.1rem;
+  color: #C9D3DE;
+  margin-bottom: 36px;
+}
+
+.hero-actions { display: flex; flex-wrap: wrap; gap: 14px; }
+
+.btn {
+  display: inline-block;
+  padding: 14px 26px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background-color .2s ease, color .2s ease;
+}
+
+.btn-solid  { background: var(--signal); color: var(--ink); }
+.btn-solid:hover  { background: #FFDE73; }
+
+.btn-ghost  { border: 1px solid currentColor; }
+.btn-ghost:hover  { background: rgba(255,255,255,.1); }
+
+.scroll-hint {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: .8rem;
+  color: #8FA3B8;
+}
+
+/* ---------------------------------------------------------
+   3. SECTIONS
+   --------------------------------------------------------- */
+
+.section { padding: 110px 32px; }
+.section-light { background: #FFFFFF; }
+.section-dark  { background: var(--ink); color: var(--paper); }
+
+.wrap { max-width: 1000px; margin: 0 auto; }
+
+.two-col {
+  display: grid;
+  grid-template-columns: 1.1fr .9fr;
+  gap: 60px;
+  align-items: start;
+}
+
+h2 {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(1.7rem, 3.4vw, 2.5rem);
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  line-height: 1.12;
+  margin-bottom: 22px;
+}
+
+h3 { font-size: 1.08rem; font-weight: 800; }
+h3.minor { margin-bottom: 14px; }
+
+.section p { max-width: 60ch; margin-bottom: 16px; }
+.lede { color: var(--grey); font-size: 1.05rem; margin-bottom: 36px; }
+.section-dark .lede { color: #9AA6B4; }
+
+/* fact list in the workshop section */
+.facts { border-top: 1px solid var(--line); }
+.facts > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line);
+}
+.facts dt { font-weight: 500; color: var(--grey); }
+.facts dd { font-weight: 500; text-align: right; }
+
+/* price list */
+.price-list { list-style: none; }
+.price-list li {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 6px 28px;
+  padding: 24px 0;
+  border-top: 1px solid var(--line);
+}
+.price-list li p { grid-column: 1; margin: 0; color: var(--grey); }
+.price-list .price {
+  grid-row: 1 / span 2;
+  grid-column: 2;
+  align-self: center;
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+/* ride card */
+.route-card {
+  background: var(--steel);
+  padding: 28px;
+}
+.route-line {
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255,255,255,.15);
+  margin: 0 !important;
+  color: #F5EDE2;
+}
+.route-line:last-child { border-bottom: 0; }
+.route-line strong { display: block; color: var(--signal); font-weight: 500; font-size: .85rem; }
+
+.address { line-height: 1.9; }
+.address a { text-decoration: none; border-bottom: 2px solid var(--signal); }
+
+footer {
+  background: var(--ink);
+  color: #8A94A0;
+  padding: 40px 32px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: .9rem;
+}
+
+/* visible keyboard focus everywhere */
+a:focus-visible, button:focus-visible {
+  outline: 3px solid var(--signal);
+  outline-offset: 3px;
+}
+
+/* ---------------------------------------------------------
+   4. RESPONSIVE
+   --------------------------------------------------------- */
+
+@media (max-width: 860px) {
+  .two-col { grid-template-columns: 1fr; gap: 40px; }
+  .section { padding: 80px 24px; }
+}
+
+@media (max-width: 720px) {
+  #navbar { padding: 0 20px; }
+
+  .menu-toggle { display: flex; }
+
+  /* menu collapses into a dropping panel */
+  .nav-links {
+    position: fixed;
+    top: var(--nav-height);
+    left: 0;
+    width: 100%;
+    flex-direction: column;
+    gap: 0;
+    background: var(--paper);
+    color: var(--ink);
+    border-bottom: 1px solid var(--line);
+
+    /* hidden by default */
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .3s ease;
+  }
+
+  .nav-links.open { max-height: 320px; }
+
+  .nav-links a {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--line);
+    border-left: 3px solid transparent;
+  }
+
+  .nav-links a:hover,
+  .nav-links a.active {
+    border-left-color: var(--signal);
+    border-bottom-color: var(--line);
+    background: #E9E6DE;
+  }
+
+  .hero { padding: 120px 24px 80px; }
+  .scroll-hint { display: none; }
+}
+
+/* respect people who turn motion down */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition-duration: .01ms !important; }
+}
